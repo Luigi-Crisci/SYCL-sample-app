@@ -5,7 +5,15 @@ void vector_add(
 	std::vector<float> &b,
 	std::vector<float> &c) {
   const auto n = a.size();
+
+  #if DEVICE_VALUE == CPU_DEVICE
+  sycl::queue q{sycl::cpu_selector()};
+  #elif DEVICE_VALUE == GPU_DEVICE
   sycl::queue q{sycl::gpu_selector()};
+  #elif DEVICE_VALUE == HOST_DEVICE
+  sycl::queue q{sycl::host_selector()};
+  #endif
+  
 
   sycl::buffer<float,1> b_a(a.data(), n);
   sycl::buffer<float,1> b_b(b.data(), n);
