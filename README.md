@@ -10,13 +10,17 @@ A simple SYCL application using CMake building system.
   - DPC++
 - Gcc/clang
 
-To build it, create a `build` directory in the main folder, go inside it and type
+To configure the project, create a `build` directory in the main folder, go inside it and type
 ```bash
 cmake .. -DSYCL_BACKEND=[hipSYCL | DPCPP] -DSYCL_DEVICE=[gpu | cpu | host]
 ```
 If you're using DPCPP, don't forget to set the correct triple for your device using
 ```bash
 -DCMAKE_CXX_FLAGS=" -fsycl-targets=YOUR_TRIPLE"
+```  
+And then build it with:
+```bash
+cmake --build ./ -j=$(nproc)
 ```
 
 A file called `sample_app` will be placed in the build folder

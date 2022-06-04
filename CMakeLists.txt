@@ -26,6 +26,7 @@ set(CPU_DEVICE 0)
 set(GPU_DEVICE 1)
 set(HOST_DEVICE 2)
 
+string(TOUPPER ${SYCL_DEVICE} SYCL_DEVICE)
 set(device_value -1)
 if(SYCL_DEVICE STREQUAL CPU)
 	set(device_value ${CPU_DEVICE})
@@ -33,6 +34,8 @@ elseif(SYCL_DEVICE STREQUAL GPU)
 	set(device_value ${GPU_DEVICE})
 elseif(SYCL_DEVICE STREQUAL HOST)
 	set(device_value ${HOST_DEVICE})
+else()
+	message(FATAL_ERROR "Unknown device selected: ${SYCL_DEVICE}" )
 endif()
 
 add_compile_definitions(sample_app
