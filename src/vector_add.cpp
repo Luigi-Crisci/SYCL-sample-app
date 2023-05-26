@@ -7,11 +7,11 @@ void vector_add(
   const auto n = a.size();
 
   #if DEVICE_VALUE == CPU_DEVICE
-  sycl::queue q{sycl::cpu_selector()};
+  sycl::queue q{sycl::cpu_selector_v};
   #elif DEVICE_VALUE == GPU_DEVICE
-  sycl::queue q{sycl::gpu_selector()};
+  sycl::queue q{sycl::gpu_selector_v};
   #elif DEVICE_VALUE == HOST_DEVICE
-  sycl::queue q{sycl::host_selector()};
+  sycl::queue q{sycl::host_selector_v};
   #endif
   
 
@@ -23,7 +23,7 @@ void vector_add(
 	sycl::accessor a_acc{b_a, cgh, sycl::read_only};
 	sycl::accessor b_acc{b_b, cgh, sycl::read_only};
 	sycl::accessor c_acc{b_c, cgh, sycl::write_only, sycl::no_init};
-
+c_acc
 	cgh.parallel_for<class vector_add>(
 		sycl::range(n), [=](sycl::item<1> idx) {
 		  c_acc[idx] = a_acc[idx] + b_acc[idx];
